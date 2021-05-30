@@ -3,7 +3,7 @@
 --=============================================================================
 --          This script uses Subliminal to download subtitles,
 --          so make sure to specify your system's Subliminal location below:
-local subliminal = '/home/david/.local/bin/subliminal'
+local subliminal = 'subliminal'
 --=============================================================================
 -->>    SUBTITLE LANGUAGE:
 --=============================================================================
@@ -15,7 +15,7 @@ local languages = {
 --          other languages will NOT be downloaded,
 --          so put your preferred language first:
             { 'English', 'en', 'eng' },
-            { 'Dutch', 'nl', 'dut' },
+--            { 'Dutch', 'nl', 'dut' },
 --          { 'Spanish', 'es', 'spa' },
 --          { 'French', 'fr', 'fre' },
 --          { 'German', 'de', 'ger' },
@@ -43,7 +43,7 @@ local logins = {
 -->>    ADDITIONAL OPTIONS:
 --=============================================================================
 local bools = {
-    auto = true,   -- Automatically download subtitles, no hotkeys required
+    auto = false,   -- Automatically download subtitles, no hotkeys required
     debug = false, -- Use `--debug` in subliminal command for debug output
     force = true,  -- Force download; will overwrite existing subtitle files
     utf8 = true,   -- Save all subtitle files as UTF-8
@@ -250,5 +250,5 @@ end
 
 
 mp.add_key_binding('b', 'download_subs', download_subs)
-mp.add_key_binding('n', 'download_subs2', download_subs2)
+mp.add_key_binding('B', 'download_subs2', download_subs2)
 mp.register_event('file-loaded', control_downloads)
