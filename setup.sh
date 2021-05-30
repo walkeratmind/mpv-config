@@ -33,7 +33,6 @@ function link {
 }
 
 link lua-modules
-link lua-settings
 link script-opts
 link scripts
 link input.conf
