@@ -1,38 +1,38 @@
 #!bin/bash
 
-mpvDir = '~/.config/mpv'
-
+mpvDir="$HOME/.config/mpv"
 srcDir=$(pwd)
 
+# function link {
+#   fPath="${mpvDir}/${1}"
+#   echo "Creating new symlink: ${fPath}"
+#   sudo ln -s "${srcDir}/${1}" ${fPath}
+# }
+
 function link {
-  echo "Creating new symlink: ${mpvDir}"
-  ln -s ${srcDir}/${1} ${mpvDir}
+  dateStr=$(date +%Y-%m-%d-%H%M)
+  fPath="${mpvDir}/${1}"
+  if [ -h "${fPath}" ]; then
+    # Existing symlink
+    echo "Removing existing symlink: ${fPath}"
+    rm ${fPath}
+
+  elif [ -f "${fPath}" ]; then
+    # Existing file
+    echo "Backing up existing file: ${fPath}"
+    mv ${fPath}{,.${dateStr}}
+
+  elif [ -d "${fPath}" ]; then
+    # Existing dir
+    echo "Backing up existing dir: ${fPath}"
+    mv ${fPath}{,.${dateStr}}
+  fi
+
+  echo "Creating new symlink: ${fPath}"
+  ln -s ${srcDir}/${1} ${fPath}
 }
 
 link lua-modules
-link scripts-opts
+link script-opts
 link scripts
 link input.conf
-
-# function linkDotfile {
-#   dateStr=$(date +%Y-%m-%d-%H%M)
-
-#   if [ -h "${mpvDir}" ]; then
-#     # Existing symlink
-#     echo "Removing existing symlink: ${mpvDir}"
-#     rm ${mpvDir}
-
-#   elif [ -f "${mpvDir}" ]; then
-#     # Existing file
-#     echo "Backing up existing file: ${mpvDir}"
-#     mv ${mpvDir}{,.${dateStr}}
-
-#   elif [ -d "${mpvDir}" ]; then
-#     # Existing dir
-#     echo "Backing up existing dir: ${mpvDir}"
-#     mv ${mpvDir}{,.${dateStr}}
-#   fi
-
-#   echo "Creating new symlink: ${mpvDir}"
-#   ln -s ${srcDir}/${1} ${mpvDir}
-# }
