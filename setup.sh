@@ -32,8 +32,10 @@ function link {
   ln -s ${srcDir}/${1} ${fPath}
 }
 
+echo "clean all configs"
+rm -rf ${mpvDir}/*
+
 link lua-modules
-link lua-settings
 link script-opts
 link scripts
 link input.conf
